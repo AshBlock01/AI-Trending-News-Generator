@@ -1,0 +1,8 @@
+streamlit
+pandas
+requests
+beautifulsoup4
+nest-asyncio
+pydantic
+pydantic-ai
+firecrawl
