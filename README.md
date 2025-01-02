@@ -18,6 +18,13 @@ An interactive Streamlit app that scrapes trending news articles from Google New
 
 ---
 
+## **Demo**
+
+Check out the live demo:  
+https://ai-trending-news-generator.streamlit.app
+
+---
+
 ## Requirements
 
 - Python 3.7+
