@@ -214,7 +214,7 @@ def main():
             st.warning("Please enter your Gemini API Key in the sidebar.")
             return
         
-        with st.spinner("Agents are working hard on it... This may take more than a minute. We need play nice with the anti-bot measures."):
+        with st.spinner("Agents are working hard on it... This may take more than a minute. We need to play nice with the anti-bot measures."):
             df = run_async_task(
                 run_generation_pipeline(query, pages_to_scrape, firecrawl_key, gemini_key, model_name)
             )
