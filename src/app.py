@@ -184,23 +184,21 @@ def display_post(post_number: int, title: str, url: str, content: str):
         formatted_content = format_llm_markdown_output(content)
         st.markdown(formatted_content)
 
-# --------------------------
-# Streamlit App
-# --------------------------
+
 def main():
-    # st.title("Generate Latest AI News Drafts with Pydantic-AI and Firecrawl")
     st.title("AI Trending News Draft Generator powered by Pydantic-AI and Firecrawl")
+    st.markdown("Enter a search query to scrape the latest trending news and generate AI-based draft posts.")
 
-    st.markdown("Enter a search query to scrape latest trending News and generate AI-based draft posts.")
-
+    # Sidebar Configuration for API Keys
     st.sidebar.title("Configuration / API Keys")
     firecrawl_key = st.sidebar.text_input("Firecrawl API Key", type="password")
     gemini_key = st.sidebar.text_input("Gemini API Key", type="password")
     
+    # Sidebar Configuration for Model and Scraping
     st.sidebar.title("Model & Scraping Settings")
     model_name = st.sidebar.selectbox(
         "Select Gemini Model",
-        ["gemini-2.0-flash-exp"]  # add more if you have them
+        ["gemini-2.0-flash-exp"]  # Add more model options here if available
     )
     pages_to_scrape = st.sidebar.slider("Number of Pages to Scrape", 1, 10, 2)
 
@@ -214,21 +212,24 @@ def main():
             st.warning("Please enter your Gemini API Key in the sidebar.")
             return
         
-        with st.spinner("Agents are working hard on it... This may take more than a minute. We need to play nice with the anti-bot measures."):
-            df = run_async_task(
-                run_generation_pipeline(query, pages_to_scrape, firecrawl_key, gemini_key, model_name)
-            )
+        with st.spinner("Agents are working hard on it... This may take a few minutes. Please be patient!"):
+            try:
+                df = run_async_task(
+                    run_generation_pipeline(query, pages_to_scrape, firecrawl_key, gemini_key, model_name)
+                )
 
-        st.success("Draft posts generated!")
-        st.markdown("Below are the AI-generated posts based on the scraped articles:")
+                st.success("Draft posts generated successfully!")
+                st.markdown("Below are the AI-generated posts based on the scraped articles:")
 
-        for idx, row in df.iterrows():
-            display_post(
-                post_number=idx + 1,
-                title=row["Title"],
-                url=row["URL"],
-                content=row["Content"]
-            )
+                for idx, row in df.iterrows():
+                    display_post(
+                        post_number=idx + 1,
+                        title=row["Title"],
+                        url=row["URL"],
+                        content=row["Content"]
+                    )
+            except Exception as e:
+                st.error(f"An error occurred: {e}")
 
 if __name__ == "__main__":
     main()
