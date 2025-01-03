@@ -205,9 +205,14 @@ def main():
     query = st.text_input("Search Query", value="AI in 2025")
 
     if st.button("Generate Draft Posts"):
+        if not query.strip():
+            st.warning("Search query cannot be empty. Please enter a valid query.")
+            return
+
         if not firecrawl_key:
             st.warning("Please enter your Firecrawl API Key in the sidebar.")
             return
+
         if not gemini_key:
             st.warning("Please enter your Gemini API Key in the sidebar.")
             return
@@ -217,6 +222,10 @@ def main():
                 df = run_async_task(
                     run_generation_pipeline(query, pages_to_scrape, firecrawl_key, gemini_key, model_name)
                 )
+
+                if df.empty:
+                    st.warning("No articles were found for the given query. Please try a different search term.")
+                    return
 
                 st.success("Draft posts generated successfully!")
                 st.markdown("Below are the AI-generated posts based on the scraped articles:")
