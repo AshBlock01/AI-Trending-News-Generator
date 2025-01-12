@@ -192,14 +192,14 @@ def main():
     # Sidebar Configuration for API Keys
     st.sidebar.title("Configuration / API Keys")
     firecrawl_key = st.sidebar.text_input("Firecrawl API Key", type="password")
-    gemini_key = st.sidebar.text_input("Gemini API Key", type="password")
+    gemini_key = st.sidebar.text_input("NeuroSwitch API key", type="password")
     
     # Sidebar Configuration for Model and Scraping
-    st.sidebar.title("Model & Scraping Settings")
-    model_name = st.sidebar.selectbox(
-        "Select Gemini Model",
-        ["gemini-2.0-flash-exp"]  # Add more model options here if available
-    )
+    st.sidebar.title("Scraping Settings")
+    # model_name = st.sidebar.selectbox(
+    #     "Select Gemini Model",
+    #     ["gemini-2.0-flash-exp"]  # Add more model options here if available
+    # )
     pages_to_scrape = st.sidebar.slider("Number of Pages to Scrape", 1, 10, 2)
 
     query = st.text_input("Search Query", value="AI in 2025")
@@ -220,7 +220,7 @@ def main():
         with st.spinner("Agents are working hard on it... This may take a few minutes. Please be patient!"):
             try:
                 df = run_async_task(
-                    run_generation_pipeline(query, pages_to_scrape, firecrawl_key, gemini_key, model_name)
+                    run_generation_pipeline(query, pages_to_scrape, firecrawl_key, gemini_key, model_name="gemini-2.0-flash-exp")
                 )
 
                 if df.empty:
