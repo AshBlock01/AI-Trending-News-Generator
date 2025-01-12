@@ -186,7 +186,7 @@ def display_post(post_number: int, title: str, url: str, content: str):
 
 
 def main():
-    st.title("AI Trending News Draft Generator powered by Pydantic-AI and Firecrawl")
+    st.title("AI Trending News Draft Generator powered by AI Agents")
     st.markdown("Enter a search query to scrape the latest trending news and generate AI-based draft posts.")
 
     # Sidebar Configuration for API Keys
@@ -214,7 +214,7 @@ def main():
             return
 
         if not gemini_key:
-            st.warning("Please enter your Gemini API Key in the sidebar.")
+            st.warning("Please enter your NeuroSwitch API Key in the sidebar.")
             return
         
         with st.spinner("Agents are working hard on it... This may take a few minutes. Please be patient!"):
