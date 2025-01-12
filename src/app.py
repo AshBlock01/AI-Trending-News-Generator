@@ -108,10 +108,10 @@ def scrape_contents(app: FirecrawlApp, links):
         try:
             scrape_result = app.scrape_url(
                 link,
-                params={'formats': ['markdown', 'html'], "waitFor": 20000}
+                params={'formats': ['markdown', 'html'], "waitFor": 5000}
             )
             contents.append(scrape_result)
-            time.sleep(30)  # short delay to avoid rate limiting
+            time.sleep(3)  # short delay to avoid rate limiting
         except Exception as e:
             contents.append(f"Error scraping content: {e}")
     return contents
