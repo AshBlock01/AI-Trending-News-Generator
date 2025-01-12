@@ -186,6 +186,8 @@ def display_post(post_number: int, title: str, url: str, content: str):
 
 
 def main():
+    st.set_page_config(page_title="Trending News Draft Generator", page_icon=None, layout="centered", initial_sidebar_state="auto", menu_items=None)
+
     st.title("AI Trending News Draft Generator powered by AI Agents")
     st.markdown("Enter a search query to scrape the latest trending news and generate AI-based draft posts.")
 
